@@ -1,0 +1,14 @@
+PUT {{host}}/api/activities
+Content-Type: application/json
+
+{
+    "id": "ac4f5beb-c9e8-45aa-8cb3-29702b9c1a6d",
+    "title": "Morning Run on the park",
+    "description": "A refreshing morning run in the park.",
+    "category": "exercise",
+    "date": "2023-10-15T07:00:00Z",
+    "city": "New York",
+    "venue": "Central Park",
+    "latitude": "40.785091",
+    "longitude": "-73.968285"
+}
