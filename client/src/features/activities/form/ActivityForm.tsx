@@ -8,7 +8,7 @@ type Props = {
 };
 
 const ActivityForm = ({ closeForm, activity }: Props) => {
-  const { updateActivity } = useActivities();
+  const { updateActivity, createActivity } = useActivities();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,6 +23,9 @@ const ActivityForm = ({ closeForm, activity }: Props) => {
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity);
+      closeForm();
+    } else {
+      await createActivity.mutateAsync(data as unknown as Activity);
       closeForm();
     }
   };
@@ -69,7 +72,7 @@ const ActivityForm = ({ closeForm, activity }: Props) => {
             Cancel
           </Button>
           <Button
-            disabled={updateActivity.isPending}
+            disabled={updateActivity.isPending || createActivity.isPending}
             type="submit"
             color="success"
             variant="contained"
