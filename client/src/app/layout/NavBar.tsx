@@ -9,11 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-type Props = {
-  openForm: () => void;
-};
-
-const NavBar = ({ openForm }: Props) => {
+const NavBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -63,7 +59,7 @@ const NavBar = ({ openForm }: Props) => {
               </MenuItem>
             </Box>
             <Button
-              onClick={openForm}
+              onClick={() => {}} // TODO: Replace empty function with proper routing, removed for refactoring reasons.
               size="large"
               variant="contained"
               color="warning"

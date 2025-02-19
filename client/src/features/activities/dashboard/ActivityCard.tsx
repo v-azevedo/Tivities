@@ -11,10 +11,9 @@ import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity: Activity;
-  selectActivity: (id: string) => void;
 };
 
-const ActivityCard = ({ activity, selectActivity }: Props) => {
+const ActivityCard = ({ activity }: Props) => {
   const { deleteActivity } = useActivities();
 
   return (
@@ -35,7 +34,7 @@ const ActivityCard = ({ activity, selectActivity }: Props) => {
         <Chip label={activity.category} variant="outlined" />
         <Box display="flex" gap={3}>
           <Button
-            onClick={() => selectActivity(activity.id)}
+            onClick={() => {}} // TODO: Replace empty function with proper routing, removed for refactoring reasons.
             size="medium"
             variant="contained"
           >
