@@ -1,14 +1,16 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { FormEvent } from "react";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity?: Activity;
   closeForm: () => void;
-  submitForm: (activity: Activity) => void;
 };
 
-const ActivityForm = ({ closeForm, activity, submitForm }: Props) => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+const ActivityForm = ({ closeForm, activity }: Props) => {
+  const { updateActivity } = useActivities();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -18,9 +20,11 @@ const ActivityForm = ({ closeForm, activity, submitForm }: Props) => {
       data[key] = value;
     });
 
-    if (activity) data.id = activity.id;
-
-    submitForm(data as unknown as Activity);
+    if (activity) {
+      data.id = activity.id;
+      await updateActivity.mutateAsync(data as unknown as Activity);
+      closeForm();
+    }
   };
 
   return (
@@ -60,7 +64,12 @@ const ActivityForm = ({ closeForm, activity, submitForm }: Props) => {
           <Button onClick={closeForm} color="inherit">
             Cancel
           </Button>
-          <Button type="submit" color="success" variant="contained">
+          <Button
+            disabled={updateActivity.isPending}
+            type="submit"
+            color="success"
+            variant="contained"
+          >
             Submit
           </Button>
         </Box>
