@@ -1,27 +1,16 @@
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Box, Container, CssBaseline } from "@mui/material";
+import NavBar from "./NavBar";
+import { Outlet } from "react-router";
 
 function App() {
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<Activity[]>("https://localhost:5001/api/activities")
-      .then((response) => setActivities(response.data));
-  }, []);
-
   return (
-    <>
-      <Typography variant="h3">Tivities</Typography>
-      <List>
-        {activities.map((activity) => (
-          <ListItem key={activity.id}>
-            <ListItemText>{activity.title}</ListItemText>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <Box sx={{ bgcolor: "#eeeeee", minHeight: "100vh" }}>
+      <CssBaseline />
+      <NavBar />
+      <Container maxWidth="xl" sx={{ mt: 3 }}>
+        <Outlet />
+      </Container>
+    </Box>
   );
 }
 
