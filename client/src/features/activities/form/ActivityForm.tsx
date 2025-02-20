@@ -37,7 +37,7 @@ const ActivityForm = () => {
   return (
     <Paper sx={{ borderRadius: 3, padding: 3 }}>
       <Typography variant="h5" gutterBottom color="primary">
-        Create activity
+        {activity ? "Edit Activity" : "Create Activity"}
       </Typography>
       <Box
         component="form"
