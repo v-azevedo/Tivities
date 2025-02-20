@@ -6,9 +6,6 @@
 # Sqlite database files
 *.db*
 
-# Vscode
-.vscode/
-
 # dotenv files
 .env
 
