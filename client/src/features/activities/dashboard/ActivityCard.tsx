@@ -63,16 +63,17 @@ const ActivityCard = ({ activity }: Props) => {
         </Box>
       </CardContent>
       <CardContent
-        sx={{ pb: 2, display: "flex", justifyContent: "space-between" }}
+        sx={{ pb: 2, display: "flex", justifyContent: "space-between", gap: 3 }}
       >
         <Typography variant="body2">{activity.description}</Typography>
         <Button
           component={Link}
           to={`/activities/${activity.id}`}
           size="medium"
-          variant="contained"
+          variant="outlined"
           sx={{
             borderRadius: 3,
+            alignSelf: "end",
           }}
         >
           View
