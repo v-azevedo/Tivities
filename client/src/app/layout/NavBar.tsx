@@ -42,7 +42,6 @@ const NavBar = () => {
             <Box sx={{ display: "flex" }}>
               <MenuItemLink to="/activities">Activities</MenuItemLink>
               <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
-              <MenuItemLink to="/counter">Counter</MenuItemLink>
             </Box>
             <MenuItem>User menu</MenuItem> {/* TODO: Implement user menu */}
           </Toolbar>
