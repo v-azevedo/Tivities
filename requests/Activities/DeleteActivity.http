@@ -1,4 +1,0 @@
-@id=ecb2bb40-c466-40a8-a2ee-ebe9fd2b4914
-
-DELETE {{host}}/api/activities/{{id}}
-Content-Type: application/json

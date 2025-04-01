@@ -1,3 +1,0 @@
-@id=0387602a-6af7-46a5-ab4e-43a9e5e60fbc
-
-GET {{host}}/api/activities/{{id}} HTTP/1.1
