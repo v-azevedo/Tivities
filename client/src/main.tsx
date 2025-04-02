@@ -21,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <RouterProvider router={router} />
+        <ToastContainer position="bottom-right" theme="colored" />
       </QueryClientProvider>
     </StoreContext.Provider>
   </StrictMode>
