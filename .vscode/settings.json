@@ -1,9 +1,0 @@
-{
-  "rest-client.certificates": {},
-  "rest-client.environmentVariables": {
-    "local": {
-      "host": "https://localhost:5001"
-    },
-    "production": {}
-  }
-}
