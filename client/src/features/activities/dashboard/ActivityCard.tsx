@@ -77,7 +77,7 @@ const ActivityCard = ({ activity }: Props) => {
           size="medium"
           variant="outlined"
           sx={{
-            borderRadius: 3,
+            borderRadius: 16,
             alignSelf: "end",
           }}
         >
