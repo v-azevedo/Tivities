@@ -12,7 +12,7 @@ public class BaseActivityValidator<T, TDto> : AbstractValidator<T>
            .NotEmpty().WithMessage("Title is required")
            .MaximumLength(100).WithMessage("Title must not exceed 100 characters");
         RuleFor(x => selector(x).Description)
-            .NotEmpty().WithMessage("Title is required")
+            .NotEmpty().WithMessage("Description is required")
             .MaximumLength(300).WithMessage("Description must not exceed 300 characters");
         RuleFor(x => selector(x).Date)
             .GreaterThan(DateTime.UtcNow).WithMessage("Date must be in the future");
