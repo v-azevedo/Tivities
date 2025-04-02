@@ -1,11 +1,11 @@
-import { Button, ButtonGroup, Typography } from "@mui/material";
+import { Alert, Button, ButtonGroup, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-// import { useState } from "react";
+import { useState } from "react";
 
 import agent from "../../lib/api/agent.ts";
 
 const TestErrors = () => {
-  //   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const { mutate } = useMutation({
     mutationFn: async ({
@@ -18,11 +18,11 @@ const TestErrors = () => {
       if (method === "post") await agent.post(path, {});
       else await agent.get(path);
     },
-    onError: (err) => {
+    onError: (err: string[]) => {
       if (Array.isArray(err)) {
-        // setValidationErrors(err);
+        setValidationErrors(err);
       } else {
-        // setValidationErrors([]);
+        setValidationErrors([]);
       }
     },
   });
@@ -52,6 +52,12 @@ const TestErrors = () => {
           Unauthorized
         </Button>
       </ButtonGroup>
+
+      {validationErrors.map((err, i) => (
+        <Alert key={i} severity="error">
+          {err}
+        </Alert>
+      ))}
     </>
   );
 };
