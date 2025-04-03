@@ -7,7 +7,7 @@ type Props = {
 };
 
 const ActivityDetailsHeader = ({ activity }: Props) => {
-  const isCancelled = true;
+  const isCancelled = false;
   const isHost = true;
   const isGoing = true;
   const loading = false;
@@ -84,7 +84,7 @@ const ActivityDetailsHeader = ({ activity }: Props) => {
                 variant="outlined"
                 color="primary"
                 component={Link}
-                to={`/manage/activityId`}
+                to={`/manage/${activity.id}`}
                 disabled={isCancelled}
               >
                 Manage Event
