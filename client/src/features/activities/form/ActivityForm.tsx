@@ -4,12 +4,15 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useForm } from "react-hook-form";
 
+import { categoryOptions } from "./categoryOptions";
 import { useActivities } from "../../../lib/hooks/useActivities";
 import {
   activitySchema,
   ActivitySchema,
 } from "../../../lib/schemas/activitySchema";
 import TextInput from "../../../app/shared/components/TextInput";
+import SelectInput from "../../../app/shared/components/SelectInput";
+import DateTImeInput from "../../../app/shared/components/DateTImeInput";
 
 const ActivityForm = () => {
   const { reset, handleSubmit, control } = useForm<ActivitySchema>({
@@ -51,8 +54,13 @@ const ActivityForm = () => {
           multiline
           rows={3}
         />
-        <TextInput label="Category" control={control} name="category" />
-        <TextInput label="Date" control={control} name="date" />
+        <SelectInput
+          items={categoryOptions}
+          label="Category"
+          control={control}
+          name="category"
+        />
+        <DateTImeInput label="Date" control={control} name="date" />
         <TextInput label="City" control={control} name="city" />
         <TextInput label="Venue" control={control} name="venue" />
         <Box display="flex" justifyContent="end" gap={3}>
