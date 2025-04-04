@@ -26,10 +26,10 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new CreateActivity.Command { ActivityDto = activityDto }));
         }
 
-        [HttpPut]
-        public async Task<ActionResult> EditActivity(EditActivityDto activityDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> EditActivity(EditActivityDto activityDto, string id)
         {
-            return HandleResult(await Mediator.Send(new EditActivity.Command { ActivityDto = activityDto }));
+            return HandleResult(await Mediator.Send(new EditActivity.Command { ActivityDto = activityDto, Id = id }));
         }
 
         [HttpDelete("{id}")]
