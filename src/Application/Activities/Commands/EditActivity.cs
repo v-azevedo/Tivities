@@ -11,13 +11,14 @@ public class EditActivity
     public class Command : IRequest<Result<Unit>>
     {
         public required EditActivityDto ActivityDto { get; set; }
+        public required string Id { get; set; }
     }
 
     public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, Result<Unit>>
     {
         public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var activity = await context.Activities.FindAsync([request.ActivityDto.Id], cancellationToken);
+            var activity = await context.Activities.FindAsync([request.Id], cancellationToken);
 
             if (activity is null) return Result<Unit>.Failure("Activity not found", 404);
 
