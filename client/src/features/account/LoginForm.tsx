@@ -6,7 +6,7 @@ import { LockOpen } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 
 import TextInput from "../../app/shared/components/TextInput";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const LoginForm = () => {
   const { loginUser } = useAccount();
@@ -69,6 +69,12 @@ const LoginForm = () => {
       >
         Login
       </Button>
+      <Typography sx={{ textAlign: "center" }}>
+        Don't have an account?{" "}
+        <Typography component={Link} to="/register" color="primary">
+          Sign up
+        </Typography>
+      </Typography>
     </Paper>
   );
 };
