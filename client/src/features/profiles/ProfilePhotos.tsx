@@ -8,16 +8,24 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import PhotoUploadWidget from "../../app/shared/components/PhotoUploadWidget";
 
 export default function ProfilePhotos() {
   const { id } = useParams();
-  const { loadingPhotos, photos, isCurrentUser } = UseProfile(id);
+  const { loadingPhotos, photos, isCurrentUser, uploadPhoto } = UseProfile(id);
   const [editMode, setEditMode] = useState(false);
+
+  const handlePhotoUpload = (file: Blob) => {
+    uploadPhoto.mutate(file, {
+      onSuccess: () => {
+        setEditMode(false);
+      },
+    });
+  };
 
   if (loadingPhotos) return <Typography>Loading photos...</Typography>;
 
-  if (!photos || photos.length === 0)
-    return <Typography>No photos found for this user.</Typography>;
+  if (!photos) return <Typography>No photos found for this user.</Typography>;
 
   return (
     <Box>
@@ -29,7 +37,10 @@ export default function ProfilePhotos() {
         </Box>
       )}
       {editMode ? (
-        <div>Photo widget goes here</div>
+        <PhotoUploadWidget
+          onUpload={handlePhotoUpload}
+          loading={uploadPhoto.isPending}
+        />
       ) : (
         <ImageList sx={{ height: 450 }} cols={6} rowHeight={164}>
           {photos.map((photo) => (
