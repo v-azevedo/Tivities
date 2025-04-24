@@ -9,10 +9,20 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import PhotoUploadWidget from "../../app/shared/components/PhotoUploadWidget";
+import StarButton from "../../app/shared/components/StarButton";
+import DeleteButton from "../../app/shared/components/DeleteButton";
 
 export default function ProfilePhotos() {
   const { id } = useParams();
-  const { loadingPhotos, photos, isCurrentUser, uploadPhoto } = UseProfile(id);
+  const {
+    loadingPhotos,
+    photos,
+    isCurrentUser,
+    uploadPhoto,
+    profile,
+    setMainPhoto,
+    deletePhoto,
+  } = UseProfile(id);
   const [editMode, setEditMode] = useState(false);
 
   const handlePhotoUpload = (file: Blob) => {
@@ -57,6 +67,24 @@ export default function ProfilePhotos() {
                 alt="user profile image"
                 loading="lazy"
               />
+              {isCurrentUser && (
+                <div>
+                  <Box
+                    sx={{ position: "absolute", top: 0, left: 0 }}
+                    onClick={() => setMainPhoto.mutate(photo)}
+                  >
+                    <StarButton selected={photo.url === profile?.imageUrl} />
+                  </Box>
+                  {profile?.imageUrl !== photo.url && (
+                    <Box
+                      sx={{ position: "absolute", top: 0, right: 0 }}
+                      onClick={() => deletePhoto.mutate(photo.id)}
+                    >
+                      <DeleteButton />
+                    </Box>
+                  )}
+                </div>
+              )}
             </ImageListItem>
           ))}
         </ImageList>
