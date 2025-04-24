@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
 import { useMemo } from "react";
+import { EditProfileSchema } from "../schemas/editProfileSchema";
 
 export const UseProfile = (id?: string) => {
   const queryClient = useQueryClient();
@@ -87,6 +88,22 @@ export const UseProfile = (id?: string) => {
     },
   });
 
+  const updateProfile = useMutation({
+    mutationFn: async (profile: EditProfileSchema) => {
+      await agent.put("/profiles", profile);
+    },
+    onSuccess: async (_, profile) => {
+      queryClient.setQueryData(["user"], (data: User) => {
+        if (!data) return data;
+        return { ...data, ...profile };
+      });
+      queryClient.setQueryData(["profile", id], (data: Profile) => {
+        if (!data) return data;
+        return { ...data, ...profile };
+      });
+    },
+  });
+
   const isCurrentUser = useMemo(() => {
     return id === queryClient.getQueryData<User>(["user"])?.id;
   }, [id, queryClient]);
@@ -100,5 +117,6 @@ export const UseProfile = (id?: string) => {
     uploadPhoto,
     setMainPhoto,
     deletePhoto,
+    updateProfile,
   };
 };
