@@ -3,8 +3,10 @@ import agent from "../api/agent";
 import { useMemo } from "react";
 import { EditProfileSchema } from "../schemas/editProfileSchema";
 
-export const UseProfile = (id?: string) => {
+export const UseProfile = (id?: string, predicate?: string) => {
   const queryClient = useQueryClient();
+
+  //QUERIES
 
   const { data: profile, isLoading: loadingProfile } = useQuery<Profile>({
     queryKey: ["profile", id],
@@ -12,7 +14,7 @@ export const UseProfile = (id?: string) => {
       const response = await agent.get<Profile>(`/profiles/${id}`);
       return response.data;
     },
-    enabled: !!id,
+    enabled: !!id && !predicate,
   });
 
   const { data: photos, isLoading: loadingPhotos } = useQuery<Photo[]>({
@@ -21,8 +23,23 @@ export const UseProfile = (id?: string) => {
       const response = await agent.get<Photo[]>(`/profiles/${id}/photos`);
       return response.data;
     },
-    enabled: !!id,
+    enabled: !!id && !predicate,
   });
+
+  const { data: followings, isLoading: loadingFollowings } = useQuery<
+    Profile[]
+  >({
+    queryKey: ["followings", id, predicate],
+    queryFn: async () => {
+      const response = await agent.get<Profile[]>(
+        `/profiles/${id}/follow-list?predicate=${predicate}`
+      );
+      return response.data;
+    },
+    enabled: !!id && !!predicate,
+  });
+
+  // MUTATIONS
 
   const uploadPhoto = useMutation({
     mutationFn: async (file: Blob) => {
@@ -110,6 +127,9 @@ export const UseProfile = (id?: string) => {
     },
     onSuccess: () => {
       queryClient.setQueryData(["profile", id], (profile: Profile) => {
+        queryClient.invalidateQueries({
+          queryKey: ["followings", id, "followers"],
+        });
         if (!profile || profile.followersCount === undefined) return profile;
 
         return {
@@ -138,5 +158,7 @@ export const UseProfile = (id?: string) => {
     deletePhoto,
     updateProfile,
     updateFollowing,
+    followings,
+    loadingFollowings,
   };
 };
