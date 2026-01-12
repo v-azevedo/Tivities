@@ -3,7 +3,6 @@ import Cropper, { ReactCropperElement } from "react-cropper";
 import { Box, Button, Grid2, Typography } from "@mui/material";
 import { CloudUpload } from "@mui/icons-material";
 import { useDropzone } from "react-dropzone";
-import "cropperjs/dist/cropper.css";
 
 type Props = {
   onUpload: (file: Blob) => void;
@@ -85,10 +84,7 @@ export default function PhotoUploadWidget({ onUpload, loading }: Props) {
             <Typography variant="overline" color="secondary">
               Step 3 - Preview & Upload
             </Typography>
-            <div
-              className="img-preview"
-              style={{ width: 300, height: 300, overflow: "hidden" }}
-            />
+            <div className="img-preview" style={{ width: 300, height: 300, overflow: "hidden" }} />
             <Button
               sx={{ my: 2, width: 300 }}
               onClick={onCrop}
